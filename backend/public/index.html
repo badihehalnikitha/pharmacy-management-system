@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GreenLeaf Pharmacy</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-icon">✚</span> GreenLeaf <small>PHARMACY</small></a>
+    <nav>
+      <button class="nav-btn active" data-view="shop">Shop</button>
+      <button class="nav-btn" data-view="orders" id="ordersNav" hidden>My Orders</button>
+      <button class="nav-btn" data-view="admin" id="adminNav" hidden>Admin</button>
+    </nav>
+    <div class="account" id="accountArea">
+      <button class="btn btn-outline" id="loginOpen">Login</button>
+      <button class="btn btn-primary" id="registerOpen">Sign up</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <span class="eyebrow">YOUR HEALTH, OUR PRIORITY</span>
+        <h1>Wellness made<br><em>simple.</em></h1>
+        <p>Browse everyday wellness essentials with clear prices and convenient ordering.</p>
+        <a class="btn btn-primary" href="#catalog">Explore medicines <span>→</span></a>
+      </div>
+      <div class="hero-art">
+        <img class="hero-photo" src="images/greenleaf-banner.png" alt="Green Leaf Pharmacy wellness banner">
+      </div>
+    </section>
+
+    <section class="benefits">
+      <div><span>✓</span><strong>Clear pricing</strong><small>Know the price upfront</small></div>
+      <div><span>♡</span><strong>Simple ordering</strong><small>Order in a few steps</small></div>
+      <div><span>⌖</span><strong>Stock visibility</strong><small>See current availability</small></div>
+    </section>
+
+    <section id="catalog" class="section">
+      <div class="section-heading">
+        <div><span class="eyebrow">OUR CATALOG</span><h2>Browse medicines</h2><p>Search the sample inventory below.</p></div>
+        <div class="search-wrap"><span>⌕</span><input id="searchInput" type="search" placeholder="Search medicine or category..."></div>
+      </div>
+      <div id="medicineGrid" class="medicine-grid"><p class="muted">Loading medicines...</p></div>
+    </section>
+
+
+
+    <section id="contactView" class="section hidden">
+      <div class="section-heading">
+        <div><span class="eyebrow">WE ARE HERE TO HELP</span><h2>Contact GreenLeaf Pharmacy</h2>
+          <p>Have a question about the website or your order? Get in touch.</p></div>
+      </div>
+      <div class="contact-layout">
+        <div class="contact-intro">
+          <span class="contact-symbol">✚</span>
+          <h3>Let's connect</h3>
+          <p>For project enquiries and general questions, use the contact details below.</p>
+        </div>
+        <div class="contact-details">
+          <div class="contact-detail"><span>NAME</span><strong>Nikitha</strong></div>
+          <div class="contact-detail"><span>EMAIL</span><a href="mailto:nikithabadinehal@gmail.com">nikithabadinehal@gmail.com</a></div>
+          <div class="contact-detail"><span>PHONE</span><strong>+91 XXXXX XXXXX</strong><small>Replace this placeholder with your phone number.</small></div>
+        </div>
+      </div>
+      <div class="contact-note">GreenLeaf Pharmacy · Your Health, Our Priority</div>
+    </section>
+
+    <section id="ordersView" class="section hidden">
+      <div class="section-heading"><div><span class="eyebrow">ORDER HISTORY</span><h2>Your orders</h2></div></div>
+      <div id="ordersList"></div>
+    </section>
+
+    <section id="adminView" class="section hidden">
+      <div class="section-heading"><div><span class="eyebrow">CONTROL CENTER</span><h2>Pharmacy admin</h2><p>Maintain medicine inventory and customer orders.</p></div></div>
+      <div class="admin-grid">
+        <form id="medicineForm" class="panel">
+          <h3 id="medicineFormTitle">Add a medicine</h3>
+          <input type="hidden" id="medicineId">
+          <label>Medicine name<input id="medName" required maxlength="150"></label>
+          <label>Category<input id="medCategory" required maxlength="50"></label>
+          <label>Manufacturer<input id="medManufacturer" maxlength="100"></label>
+          <div class="form-row"><label>Price (₹)<input id="medPrice" type="number" min="0" step="0.01" required></label><label>Stock<input id="medStock" type="number" min="0" step="1" required></label></div>
+          <label>Expiry date<input id="medExpiry" type="date" required></label>
+          <div class="form-actions"><button class="btn btn-primary" type="submit">Save medicine</button><button class="btn btn-outline" type="button" id="cancelEdit">Clear</button></div>
+        </form>
+        <div class="panel"><h3>Inventory</h3><div id="adminInventory" class="table-wrap"></div></div>
+      </div>
+      <div class="panel orders-panel"><h3>All customer orders</h3><div id="adminOrders" class="table-wrap"></div></div>
+    </section>
+  </main>
+
+  <footer><div class="brand"><span class="brand-icon">✚</span> GreenLeaf <small>PHARMACY</small></div><p>Academic mini-project demonstration · Always follow professional medical advice.</p></footer>
+
+  <div class="cart-fab" id="cartFab">🛒 <span id="cartCount">0</span></div>
+  <div class="overlay hidden" id="cartOverlay"><div class="modal cart-modal"><button class="close" data-close="cartOverlay">×</button><span class="eyebrow">YOUR SELECTION</span><h2>Shopping cart</h2><div id="cartItems"></div><div class="cart-total"><span>Total</span><strong id="cartTotal">₹0.00</strong></div><button class="btn btn-primary full" id="checkoutBtn">Place order</button></div></div>
+
+  <div class="overlay hidden" id="authOverlay"><div class="modal auth-modal"><button class="close" data-close="authOverlay">×</button><span class="eyebrow">WELCOME TO GREENLEAF</span><h2 id="authTitle">Login</h2><form id="authForm"><div id="nameField" class="hidden"><label>Full name<input id="authName" autocomplete="name"></label></div><label>Email<input id="authEmail" type="email" required autocomplete="email"></label><label>Password<input id="authPassword" type="password" required minlength="8" autocomplete="current-password"></label><div id="phoneField" class="hidden"><label>Phone<input id="authPhone" maxlength="15"></label></div><button class="btn btn-primary full" id="authSubmit">Login</button></form><p class="switch-auth" id="switchAuth">New here? <button type="button" id="switchAuthBtn">Create an account</button></p></div></div>
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
